@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#10b981" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="SafeDrive" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="음주운전 예방 인지능력 테스트 - 평소 기록과 비교하여 운전 적합성을 판단하세요" />
+    <meta name="keywords" content="음주운전, 예방, 인지능력, 테스트, 안전운전, 대리운전" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Safe Drive Check" />
+    <meta property="og:description" content="음주운전 예방 인지능력 테스트" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-image.png" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css" rel="stylesheet" />
+    
+    <title>Safe Drive Check - 음주운전 예방 인지능력 테스트</title>
+    
+    <style>
+      /* Critical CSS for faster first paint */
+      body {
+        margin: 0;
+        background-color: #0a0a0a;
+        color: #fafafa;
+        font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+      
+      #root {
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+      
+      /* Loading state */
+      .initial-loader {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      
+      .initial-loader .spinner {
+        font-size: 3rem;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="initial-loader">
+        <div class="spinner">🚗</div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
