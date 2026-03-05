@@ -20,7 +20,7 @@ export default function Concentration({ onComplete }: GameProps) {
   const timeRef = useRef(0);
   const { success } = useHaptic();
 
-  const gameDuration = 20;
+  const gameDuration = 10;
 
   const calculateAccuracy = useCallback(() => {
     if (sampleCount === 0) return 0;
@@ -47,7 +47,7 @@ export default function Concentration({ onComplete }: GameProps) {
   });
 
   // 공의 움직임 애니메이션 (sin 파형)
-  const animateBall = useCallback(() => {
+  function animateBall() {
     timeRef.current += 0.02;
     const t = timeRef.current;
     
@@ -57,13 +57,13 @@ export default function Concentration({ onComplete }: GameProps) {
     
     setBallPosition({ x, y });
     animationRef.current = requestAnimationFrame(animateBall);
-  }, []);
+  }
 
-  const handleStart = useCallback(() => {
+  const handleStart = () => {
     setIsStarted(true);
     start();
     animateBall();
-  }, [start, animateBall]);
+  };
 
   // 터치/마우스 이동 처리
   const handleMove = useCallback((clientX: number, clientY: number) => {
