@@ -12,6 +12,7 @@ export function useGameTimer({ duration, onComplete, autoStart = false }: UseGam
   const [isCompleted, setIsCompleted] = useState(false);
   const intervalRef = useRef<number | null>(null);
   const onCompleteRef = useRef(onComplete);
+  const hasCompletedRef = useRef(false);
 
   useEffect(() => {
     onCompleteRef.current = onComplete;
@@ -26,6 +27,7 @@ export function useGameTimer({ duration, onComplete, autoStart = false }: UseGam
   }, []);
 
   const reset = useCallback(() => {
+    hasCompletedRef.current = false;
     setTimeLeft(duration);
     setIsRunning(false);
     setIsCompleted(false);
@@ -43,9 +45,12 @@ export function useGameTimer({ duration, onComplete, autoStart = false }: UseGam
             clearInterval(intervalRef.current);
             intervalRef.current = null;
           }
-          setIsRunning(false);
-          setIsCompleted(true);
-          onCompleteRef.current?.();
+          if (!hasCompletedRef.current) {
+            hasCompletedRef.current = true;
+            setIsRunning(false);
+            setIsCompleted(true);
+            onCompleteRef.current?.();
+          }
           return 0;
         }
         return prev - 1;
