@@ -15,7 +15,7 @@ export default function ReactionTime({ onComplete }: GameProps) {
   const timerRef = useRef<number | null>(null);
   const { light, error, success } = useHaptic();
 
-  const totalRounds = 5;
+  const totalRounds = 3;
 
   const startRound = useCallback(() => {
     setState('ready');
