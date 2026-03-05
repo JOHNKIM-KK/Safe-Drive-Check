@@ -16,7 +16,7 @@ export default function Coordination({ onComplete }: GameProps) {
   const lastDirectionRef = useRef<Direction>('right');
   const { light, error, success } = useHaptic();
 
-  const gameDuration = 20;
+  const gameDuration = 10;
 
   const handleComplete = useCallback(() => {
     setTimeout(() => {

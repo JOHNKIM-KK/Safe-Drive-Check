@@ -56,7 +56,7 @@ export default function Judgment({ onComplete }: GameProps) {
   const questionStartRef = useRef(0);
   const { light, error, success } = useHaptic();
 
-  const totalQuestions = 15;
+  const totalQuestions = 5;
 
   const handleAnswer = useCallback((answer: 'left' | 'right') => {
     if (feedback || isComplete) return;

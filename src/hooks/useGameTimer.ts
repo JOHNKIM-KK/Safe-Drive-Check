@@ -11,6 +11,12 @@ export function useGameTimer({ duration, onComplete, autoStart = false }: UseGam
   const [isRunning, setIsRunning] = useState(autoStart);
   const [isCompleted, setIsCompleted] = useState(false);
   const intervalRef = useRef<number | null>(null);
+  const onCompleteRef = useRef(onComplete);
+  const hasCompletedRef = useRef(false);
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   const start = useCallback(() => {
     setIsRunning(true);
@@ -21,32 +27,43 @@ export function useGameTimer({ duration, onComplete, autoStart = false }: UseGam
   }, []);
 
   const reset = useCallback(() => {
+    hasCompletedRef.current = false;
     setTimeLeft(duration);
     setIsRunning(false);
     setIsCompleted(false);
   }, [duration]);
 
   useEffect(() => {
-    if (isRunning && timeLeft > 0) {
-      intervalRef.current = window.setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
+    if (!isRunning) {
+      return;
+    }
+
+    intervalRef.current = window.setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
+          if (!hasCompletedRef.current) {
+            hasCompletedRef.current = true;
             setIsRunning(false);
             setIsCompleted(true);
-            onComplete?.();
-            return 0;
+            onCompleteRef.current?.();
           }
-          return prev - 1;
-        });
-      }, 1000);
-    }
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
 
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
+        intervalRef.current = null;
       }
     };
-  }, [isRunning, timeLeft, onComplete]);
+  }, [isRunning]);
 
   const progress = ((duration - timeLeft) / duration) * 100;
 

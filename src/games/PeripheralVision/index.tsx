@@ -20,7 +20,7 @@ export default function PeripheralVision({ onComplete }: GameProps) {
   const spawnIntervalRef = useRef<number | null>(null);
   const { light, success } = useHaptic();
 
-  const gameDuration = 20;
+  const gameDuration = 10;
   
   const handleComplete = useCallback(() => {
     if (spawnIntervalRef.current) {
