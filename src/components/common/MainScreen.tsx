@@ -60,7 +60,7 @@ export default function MainScreen() {
           <h1 className="text-3xl font-bold text-white mb-2">
             Safe Drive Check
           </h1>
-          <p className="text-neutral-400">
+          <p className="text-white font-bold">
             운전하기 전, 2분만 체크하세요
           </p>
         </motion.div>
